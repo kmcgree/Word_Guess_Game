@@ -7,6 +7,7 @@ var correctGuesses;
 var wrongGuesses;
 var Wins = 0;
 
+var winDisplay = document.getElementById("wins")
 var wordElement = document.getElementById("word");
 var letterCountElement = document.getElementById("guessesremaining");
 var lettersGuessed = document.getElementById("lettersguessed");
@@ -21,20 +22,26 @@ function initializeGame() {
 
     //for correct guesses.  
     for (i = 0; i < word.length; i++) {
-        correctGuesses.push("_");
+        if (word[i] === "-") {
+            correctGuesses.push("-");
+        }if (word[i] === " ") {
+            correctGuesses.push(" ");
+        }else {
+            correctGuesses.push("_");
+        }
     }
-
+    winDisplay.innerHTML = "Wins: " + Wins;
     wordElement.innerHTML = correctGuesses.join(" ");
-    letterCountElement.innerHTML = allowedGuesses;
+    letterCountElement.innerHTML = "Guesses Left: " + allowedGuesses;
 }
 
 function updateGuesses(letter) {
-    letterCountElement.innerHTML = allowedGuesses;
+    letterCountElement.innerHTML = "Guesses Left: " + allowedGuesses;
 
     if (word.indexOf(letter) === -1) {
         wrongGuesses.push(letter);
         allowedGuesses--;
-        lettersGuessedElement.innerHTML = wrongGuesses.join(", ");
+        lettersGuessed.innerHTML ="Letters Guessed: " + wrongGuesses.join(", ");
     }else {
         for (i = 0; i < word.length; i++) {
             if (word[i] === letter) {
